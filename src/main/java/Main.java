@@ -10,6 +10,7 @@ public class Main {
 
         System.out.println("peek "+queue.peek());
         System.out.println(queue);
-
+        queue.remove();
+        System.out.println(queue);
     }
 }
