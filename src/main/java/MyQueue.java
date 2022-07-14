@@ -5,9 +5,15 @@ import java.util.NoSuchElementException;
 
 public class MyQueue {
     private final List<String> list;
+    private Integer maxSize;
 
     public MyQueue() {
-        this.list = new LinkedList<>();
+        this.list = new ArrayList<>();
+    }
+
+    public MyQueue(int maxSize) {
+        this.list = new ArrayList<>();
+        this.maxSize = maxSize;
     }
 
     @Override
@@ -22,54 +28,45 @@ public class MyQueue {
     }
 
     public boolean add(String str) {
-        try {
-            if (list.isEmpty()) {
-                offer(str);
-            } else{
-                this.list.add(list.size() - 1, str);
+        if (maxSize != null && list.size() == maxSize) {
+            throw new IllegalStateException();
         }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
+        this.list.add(0, str);
+        return true;
     }
 
     public String peek() {
-        return list.isEmpty() ? null : list.get(0);
+        return this.list.isEmpty() ? null : this.list.get(list.size() - 1);
     }
 
-
     public String pool() {
-        if (list.isEmpty()) {
+        if (this.list.isEmpty()) {
             return null;
         }
-        String str = list.get(0);
-        list.remove(str);
-        return str;
+        return this.list.remove(list.size() - 1);
     }
 
     public String remove() {
         if (list.isEmpty()) {
             throw new NoSuchElementException();
         }
-        String str = list.get(0);
-        list.remove(str);
-        return str;
+        return this.list.remove(list.size() - 1);
     }
 
     public boolean offer(String str) {
+        if (str == null) {
+            throw new NullPointerException();
+        }
         try {
-            list.add(str);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return add(str);
+        } catch (IllegalStateException e) {
+            return false;
         }
-        return false;
     }
-
-    public String element() {
-        if (list.isEmpty()) {
-            throw new NoSuchElementException();
+        public String element () {
+            if (list.isEmpty()) {
+                throw new NoSuchElementException();
+            }
+            return list.get(list.size()-1);
         }
-        return list.get(0);
     }
-}
