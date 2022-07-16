@@ -39,7 +39,7 @@ public class MyQueue {
         return this.list.isEmpty() ? null : this.list.get(list.size() - 1);
     }
 
-    public String pool() {
+    public String poll() {
         if (this.list.isEmpty()) {
             return null;
         }
@@ -69,4 +69,8 @@ public class MyQueue {
             }
             return list.get(list.size()-1);
         }
+
+    public int size() {
+        return list.size();
     }
+}
